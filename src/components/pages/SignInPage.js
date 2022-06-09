@@ -4,12 +4,9 @@ import { useUser } from '../../context/userContext';
 import { logInUserRequest } from '../../dataFetching';
 import Layout from '../Layout';
 
-
-
 function SignInPage() {
 
-  const { user } = useUser()
-  const { login } = useUser()
+  const { user, login } = useUser()
 
   const [signInForm, setSignInForm] = useState({
     email: '',
