@@ -4,9 +4,12 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useShoppingCart } from '../context/shoppingCartContext';
+import { useUser } from '../context/userContext';
 
 function Header() {
   const { shoppingCart } = useShoppingCart();
+  const { user } = useUser()
+  const isLoggedIn = user.email !== ''
 
   const itemQuantity = shoppingCart.reduce((acc, cartItem) => acc + cartItem.quantity, 0);
 
@@ -17,7 +20,13 @@ function Header() {
           My Music Store
         </Typography>
         <Box mr={2}>
-          <Button variant="contained" color="primary">Sign In</Button>
+
+          {!isLoggedIn ?
+            <Button variant="contained" color="primary">Sign In</Button>
+            :
+            <div>Hi {user.firstName}</div>
+          }
+
         </Box>
         <IconButton
           size="large"
