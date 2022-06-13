@@ -5,23 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { useShoppingCart } from '../../context/shoppingCartContext';
 import CartItem from '../CartItem';
 import Layout from '../Layout';
-// const sampleShoppingCart = [
-
-//   {
-//     id: '234',
-//     title: "Red Drum Set",
-//     price: 59999,
-//     quantity: 2,
-//     image: 'https://m.media-amazon.com/images/I/61YlBr7OQfS._AC_SL1500_.jpg',
-//  },
-//  {
-//   id: '123',
-//   title: "Blue Drum Set",
-//   price: 59999,
-//   quantity: 2,
-//   image: 'https://m.media-amazon.com/images/I/61YlBr7OQfS._AC_SL1500_.jpg',
-// },
-// ];
+import { Link } from 'react-router-dom';
 
 function CartPage() {
   const {
@@ -58,17 +42,19 @@ function CartPage() {
             </Button>
           </Box>
           <Box mb={3}>
-            <Button
-              fullWidth
-              variant="contained"
-              startIcon={<HomeIcon />}
-            >
-              Home
-            </Button>
+            <Link to="/">
+              <Button
+                fullWidth
+                variant="contained"
+                startIcon={<HomeIcon />}
+              >
+                Home
+              </Button>
+            </Link>
           </Box>
         </Box>
       </Box>
-    </Layout>
+    </Layout >
   );
 }
 
