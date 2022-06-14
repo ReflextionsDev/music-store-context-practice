@@ -1,12 +1,16 @@
 import { Box, Button, TextField } from '@mui/material';
-import React, { useState } from 'react';
-import { useUser } from '../../context/userContext';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+// import { useUser } from '../../context/userContext';
 import { logInUserRequest } from '../../dataFetching';
 import Layout from '../Layout';
 
+
 function SignInPage() {
 
-  const { user, login } = useUser()
+  const dispatch = useDispatch()
+
+  // const { user } = useUser()
 
   const [signInForm, setSignInForm] = useState({
     email: '',
@@ -17,30 +21,33 @@ function SignInPage() {
     logInUserRequest()
       .then((response) => {
         console.log('user sign in response: ', response);
-        // Put the resulting user data in react context over the entire application
-        // That it can be accessed from any component in the component tree.
-        login(response.data)
+        dispatch({
+          type: 'SIGN_IN',
+          payload: {
+            user: response.data
+          }
+        })
+
       });
   };
 
   const handleSignOut = () => {
-    // lougout the user
     logInUserRequest()
       .then((response) => {
         console.log('user sign out response: ', response);
-        // Remove the user data from the user context when a user logs out
-        login({
-          id: '',
-          firstName: '',
-          lastName: '',
-          email: '',
-          favorites: [],
+        dispatch({
+          type: 'SIGN_OUT'
         })
       });
   };
 
-  const isLoggedIn = user.email !== ''
+  const isLoggedIn = !(useSelector(state => state.user) === null)
   console.log('logged?', isLoggedIn)
+
+  
+  // const firstName = useSelector(state => state.user.firstName)
+  const firstName = (useSelector(state => state.user) === null) ? '' : useSelector(state => state.user.firstName)
+  
 
   if (!isLoggedIn) {
     return (
@@ -78,7 +85,7 @@ function SignInPage() {
     return (
       <Layout>
         <Box p={4}>
-          <h1>Welcome, {user.firstName}</h1>
+          <h1>Welcome, {firstName}</h1>
           <Button variant="contained" onClick={handleSignOut}>Sign Out</Button>
         </Box>
       </Layout>

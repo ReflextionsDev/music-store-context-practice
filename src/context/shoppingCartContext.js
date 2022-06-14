@@ -8,7 +8,7 @@ const ADD_TO_CART_ACTION = 'ADD_TO_CART'
 const REMOVE_FROM_CART_ACTION = 'REMOVE_FROM_CART'
 const EMPTY_CART_ACTION = 'EMPTY_CART'
 
-const shoppingCartReducer = (shoppingCart, action) => {
+const shoppingCartReducer = (shoppingCart = [], action) => {
   switch (action.type) {
     case ADD_TO_CART_ACTION:
       {
