@@ -41,15 +41,9 @@ function SignInPage() {
       });
   };
 
-  const isLoggedIn = !(useSelector(state => state.user) === null)
-  console.log('logged?', isLoggedIn)
+  const user = useSelector(state => state.user);
 
-  
-  // const firstName = useSelector(state => state.user.firstName)
-  const firstName = (useSelector(state => state.user) === null) ? '' : useSelector(state => state.user.firstName)
-  
-
-  if (!isLoggedIn) {
+  if (!user) {
     return (
       <Layout>
         <Box p={4}>
@@ -82,6 +76,7 @@ function SignInPage() {
       </Layout>
     );
   } else {
+    const firstName = user.firstName
     return (
       <Layout>
         <Box p={4}>
